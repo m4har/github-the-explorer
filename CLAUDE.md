@@ -8,10 +8,10 @@ This is a Next.js 15 application using the App Router, built with TypeScript and
 
 ## Development Commands
 
-- `npm run dev` - Start development server with Turbopack (fast refresh)
-- `npm run build` - Build production application with Turbopack
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint to check code quality
+- `bun run dev` - Start development server with Turbopack (fast refresh)
+- `bun run build` - Build production application with Turbopack
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint to check code quality
 
 ## Architecture
 
@@ -23,7 +23,7 @@ This is a Next.js 15 application using the App Router, built with TypeScript and
 - **UI Components**: shadcn/ui (configured for "new-york" style)
 - **Icons**: Lucide React
 - **Utility Functions**: clsx + tailwind-merge for conditional styling
-- **Testing**: @testing-library/react and bun:test
+- **Testing**: @testing-library/react with bun:test for Jest-like testing experience
 
 ### Project Structure
 
@@ -61,7 +61,9 @@ This is a Next.js 15 application using the App Router, built with TypeScript and
 
 - The project uses Turbopack for faster development and building
 - ESLint is configured with Next.js recommended rules
-- No separate test configuration is present in the current setup
+- Testing uses @testing-library/react with bun:test runner
+- Happy DOM is configured for browser-like testing environment
+- Custom matchers available in matchers.d.ts
 - The application is ready for production deployment with Vercel
 
 ### File Naming Conventions
@@ -75,7 +77,7 @@ This is a Next.js 15 application using the App Router, built with TypeScript and
 
 #### Data-TestID Convention
 
-**Pattern**: `[module]-[component]-[element]-[action?]`
+**Pattern**: `[module]-[component]-[element]`
 
 #### Required Elements with Data-TestID
 
@@ -88,19 +90,21 @@ This is a Next.js 15 application using the App Router, built with TypeScript and
 
 ```typescript
 // Form elements
-<Form data-testid="entity-form">
-  <Input data-testid="entity-form-name-input" />
-  <Switch data-testid="entity-form-status-switch" />
-  <Button data-testid="entity-save-btn" />
+<Form data-testid="app-form">
+  <Input data-testid="app-form-name-input" />
+  <Button data-testid="app-form-submit-btn" />
 </Form>
 
-// Table elements
-<DataTable data-testid="entity-table" />
-<Button data-testid={`entity-edit-btn-${record.id}`} />
+// User components
+<UserCard data-testid="user-card">
+  <Button data-testid={`user-edit-btn-${user.id}`} />
+</UserCard>
 
-// Modal elements
-<Modal data-testid="entity-modal">
-  <Button data-testid="entity-modal-save-btn" />
-  <Button data-testid="entity-modal-cancel-btn" />
-</Modal>
+// Loading states
+<p data-testid="app-loading-text">Loading...</p>
+
+// Interactive elements
+<Input data-testid="app-search-input" />
+<Button data-testid="app-search-btn" />
+<Accordion data-testid="app-accordion" />
 ```
