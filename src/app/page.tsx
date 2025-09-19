@@ -10,7 +10,8 @@ import { UserRepo } from "./_components/user-repo";
 
 export default function Home() {
   const [searchUser, setSearchUser] = useState("");
-  const { data, isFetching } = useSearchUsers({ query: searchUser });
+  const [submitSearch, setSubmitSearch] = useState("");
+  const { data, isFetching } = useSearchUsers({ query: submitSearch });
   const userList = data || [];
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -25,6 +26,7 @@ export default function Home() {
           <Button
             className="bg-blue-400 hover:bg-blue-500"
             data-testid="app-home-search-btn"
+            onClick={() => setSubmitSearch(searchUser)}
           >
             Search
           </Button>
